@@ -31,4 +31,14 @@ public class AssetRestController {
     public Asset create(@Valid @RequestBody Asset asset) {
         return service.createAsset(asset.getName(), asset.getCategory(), asset.getStatus());
     }
+
+    @PutMapping("/{id}")
+    public Asset update(@PathVariable String id, @Valid @RequestBody Asset asset) {
+        return service.updateAsset(id, asset.getName(), asset.getCategory(), asset.getStatus());
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable String id) {
+        return service.deleteAsset(id);
+    }
 }
