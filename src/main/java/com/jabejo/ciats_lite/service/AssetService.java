@@ -1,6 +1,7 @@
 package com.jabejo.ciats_lite.service;
 
 import com.jabejo.ciats_lite.model.Asset;
+import com.jabejo.ciats_lite.model.AssetStatus;
 import com.jabejo.ciats_lite.repository.AssetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -66,18 +67,23 @@ public class AssetService {
         return repository.findById(id).orElse(null);
     }
 
-    public Asset createAsset(String name, String category, String status) {
+    public Asset createAsset(String name, String category, AssetStatus status) {
+        log.info("Mencoba membuat aset baru: [Name: {}, Category: {}]", name, category);
+
         Asset asset = Asset.builder()
                 .id(sequenceGenerator.generateSequence("asset_sequence"))
                 .name(name)
                 .category(category)
                 .status(status)
                 .build();
-        return repository.save(asset);
+
+        Asset savedAsset = repository.save(asset);
+        log.info("Aset berhasil disimpan dengan ID: {}", savedAsset.getId());
+        return savedAsset;
     }
 
     @CachePut(value = "assetCache", key = "#id")
-    public Asset updateAsset(String id, String name, String category,String status) {
+    public Asset updateAsset(String id, String name, String category,AssetStatus status) {
         Asset asset = repository.findById(id).orElseThrow(() -> new RuntimeException("Aset Tidak Ditemukan"));
         if (name != null) asset.setName(name);
         if (category != null) asset.setCategory(category);
@@ -87,8 +93,8 @@ public class AssetService {
 
     @CacheEvict(value = "assetCache", key = "#id")
     public String deleteAsset(String id) {
+        log.warn("PERINGATAN: Menghapus aset dengan ID: {}", id);
         repository.deleteById(id);
-
-        return "Aset dengan ID " + id + " berhasil dihapus secara permanen dari Mongodb dan Redis";
+        return "Aset dengan ID " + id + " berhasil dihapus";
     }
 }

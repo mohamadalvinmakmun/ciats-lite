@@ -25,5 +25,5 @@ public class Asset implements Serializable {
 
     @NotBlank(message = "Kategori tidak boleh kosong!")
     private String category;
-    private String status;
+    private AssetStatus status;
 }

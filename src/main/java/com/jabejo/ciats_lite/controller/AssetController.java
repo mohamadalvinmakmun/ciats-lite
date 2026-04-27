@@ -1,6 +1,7 @@
 package com.jabejo.ciats_lite.controller;
 
 import com.jabejo.ciats_lite.model.Asset;
+import com.jabejo.ciats_lite.model.AssetStatus;
 import com.jabejo.ciats_lite.service.AssetService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -48,12 +49,12 @@ public class AssetController {
     }
 
     @MutationMapping
-    public Asset createAsset(@Argument String name, @Argument String category, @Argument String status) {
+    public Asset createAsset(@Argument String name, @Argument String category, @Argument AssetStatus status) {
         return service.createAsset(name, category, status);
     }
 
     @MutationMapping
-    public Asset updateAsset(@Argument String id, @Argument String name, @Argument String category, @Argument String status) {
+    public Asset updateAsset(@Argument String id, @Argument String name, @Argument String category, @Argument AssetStatus status) {
         return service.updateAsset(id, name, category, status);
     }
 
