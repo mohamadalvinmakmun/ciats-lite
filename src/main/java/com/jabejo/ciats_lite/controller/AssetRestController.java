@@ -1,6 +1,7 @@
 package com.jabejo.ciats_lite.controller;
 
 import com.jabejo.ciats_lite.dto.AssetRequest; // Import DTO baru kamu
+import com.jabejo.ciats_lite.dto.WebResponse;
 import com.jabejo.ciats_lite.model.Asset;
 import com.jabejo.ciats_lite.service.AssetService;
 import jakarta.validation.Valid;
@@ -27,8 +28,14 @@ public class AssetRestController {
     }
 
     @GetMapping("/{id}")
-    public Asset getById(@PathVariable String id) {
-        return service.getAssetById(id);
+    public WebResponse<Asset> getById(@PathVariable String id) {
+        Asset asset = service.getAssetById(id);
+        return WebResponse.<Asset>builder()
+                .code(200)
+                .status("OK")
+                .data(asset)
+                .message("Berhasil mengambil data aset")
+                .build();
     }
 
     @GetMapping("/sorted")
