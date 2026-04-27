@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -42,6 +43,11 @@ public class AssetRestController {
     @GetMapping("/category/{name}")
     public List<Asset> getByCategory(@PathVariable String name) {
         return service.getAssetByCategory(name);
+    }
+
+    @GetMapping("/report/category")
+    public Map<String, Long> getCategoryReport() {
+        return service.getAssetCountByCategory();
     }
 
     @PostMapping

@@ -9,6 +9,12 @@ type Query {
     getAllAssets: [Asset]
     getAssetById(id: ID!): Asset
     findAssetsByName(name: String!): [Asset]
+    getAssetReport: [CategoryCount]
+}
+
+type CategoryCount {
+    category: String
+    count: Int
 }
 
 type Mutation {

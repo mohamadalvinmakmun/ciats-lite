@@ -13,6 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -47,6 +50,14 @@ public class AssetService {
 
     public List<Asset> getAssetByCategory(String category) {
         return repository.findByCategoryIgnoreCase(category);
+    }
+
+    public Map<String, Long> getAssetCountByCategory(){
+        return repository.findAll().stream()
+                .collect(Collectors.groupingBy(
+                        Asset::getCategory,
+                        Collectors.counting()
+                ));
     }
 
     @Cacheable(value = "assetCache", key = "#id")
