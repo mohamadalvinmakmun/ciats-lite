@@ -1,5 +1,6 @@
 package com.jabejo.ciats_lite.controller;
 
+import com.jabejo.ciats_lite.dto.AssetRequest; // Import DTO baru kamu
 import com.jabejo.ciats_lite.model.Asset;
 import com.jabejo.ciats_lite.service.AssetService;
 import jakarta.validation.Valid;
@@ -28,13 +29,22 @@ public class AssetRestController {
     }
 
     @PostMapping
-    public Asset create(@Valid @RequestBody Asset asset) {
-        return service.createAsset(asset.getName(), asset.getCategory(), asset.getStatus());
+    public Asset create(@Valid @RequestBody AssetRequest request) {
+        return service.createAsset(
+                request.getName(),
+                request.getCategory(),
+                request.getStatus()
+        );
     }
 
     @PutMapping("/{id}")
-    public Asset update(@PathVariable String id, @Valid @RequestBody Asset asset) {
-        return service.updateAsset(id, asset.getName(), asset.getCategory(), asset.getStatus());
+    public Asset update(@PathVariable String id, @Valid @RequestBody AssetRequest request) {
+        return service.updateAsset(
+                id,
+                request.getName(),
+                request.getCategory(),
+                request.getStatus()
+        );
     }
 
     @DeleteMapping("/{id}")
