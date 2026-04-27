@@ -2,6 +2,7 @@ package com.jabejo.ciats_lite.controller;
 
 import com.jabejo.ciats_lite.model.Asset;
 import com.jabejo.ciats_lite.service.AssetService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class AssetRestController {
     @GetMapping("/{id}")
     public Asset getById(@PathVariable String id) {
         return service.getAssetById(id);
+    }
+
+    @PostMapping
+    public Asset create(@Valid @RequestBody Asset asset) {
+        return service.createAsset(asset.getName(), asset.getCategory(), asset.getStatus());
     }
 }
