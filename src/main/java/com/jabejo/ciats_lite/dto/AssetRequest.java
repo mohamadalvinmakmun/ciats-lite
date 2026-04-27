@@ -1,5 +1,6 @@
 package com.jabejo.ciats_lite.dto;
 
+import com.jabejo.ciats_lite.model.AssetStatus;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -11,5 +12,5 @@ public class AssetRequest {
     @NotBlank(message = "Kategori wajib diisi")
     private String category;
 
-    private String status;
+    private AssetStatus status;
 }

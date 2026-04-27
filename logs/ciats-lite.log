@@ -24,3 +24,11 @@
 2026-04-27T16:24:47.925+07:00  INFO 22884 --- [ciats-lite] [main] s.b.a.g.s.GraphQlWebMvcAutoConfiguration : GraphQL endpoint HTTP POST /graphql
 2026-04-27T16:24:49.447+07:00  INFO 22884 --- [ciats-lite] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2026-04-27T16:24:49.483+07:00  INFO 22884 --- [ciats-lite] [main] c.j.ciats_lite.CiatsLiteApplication      : Started CiatsLiteApplication in 23.307 seconds (process running for 26.145)
+2026-04-27T16:26:01.312+07:00  INFO 22884 --- [ciats-lite] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-27T16:26:01.313+07:00  INFO 22884 --- [ciats-lite] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-27T16:26:01.320+07:00  INFO 22884 --- [ciats-lite] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2026-04-27T16:26:01.933+07:00  INFO 22884 --- [ciats-lite] [http-nio-8080-exec-2] c.j.ciats_lite.service.AssetService      : Mencoba membuat aset baru: [Name: Laptop Acer, Category: Elektronik]
+2026-04-27T16:26:02.352+07:00  INFO 22884 --- [ciats-lite] [http-nio-8080-exec-2] c.j.ciats_lite.service.AssetService      : Aset berhasil disimpan dengan ID: 6
+2026-04-27T16:26:36.882+07:00  WARN 22884 --- [ciats-lite] [http-nio-8080-exec-3] c.j.ciats_lite.service.AssetService      : PERINGATAN: Menghapus aset dengan ID: 6
+2026-04-27T16:56:25.396+07:00  INFO 22884 --- [ciats-lite] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-27T16:56:25.473+07:00  INFO 22884 --- [ciats-lite] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

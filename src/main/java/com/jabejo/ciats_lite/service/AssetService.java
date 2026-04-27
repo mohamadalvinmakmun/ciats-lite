@@ -1,6 +1,7 @@
 package com.jabejo.ciats_lite.service;
 
 import com.jabejo.ciats_lite.model.Asset;
+import com.jabejo.ciats_lite.model.AssetStatus;
 import com.jabejo.ciats_lite.repository.AssetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -66,7 +67,7 @@ public class AssetService {
         return repository.findById(id).orElse(null);
     }
 
-    public Asset createAsset(String name, String category, String status) {
+    public Asset createAsset(String name, String category, AssetStatus status) {
         log.info("Mencoba membuat aset baru: [Name: {}, Category: {}]", name, category);
 
         Asset asset = Asset.builder()
@@ -82,7 +83,7 @@ public class AssetService {
     }
 
     @CachePut(value = "assetCache", key = "#id")
-    public Asset updateAsset(String id, String name, String category,String status) {
+    public Asset updateAsset(String id, String name, String category,AssetStatus status) {
         Asset asset = repository.findById(id).orElseThrow(() -> new RuntimeException("Aset Tidak Ditemukan"));
         if (name != null) asset.setName(name);
         if (category != null) asset.setCategory(category);
