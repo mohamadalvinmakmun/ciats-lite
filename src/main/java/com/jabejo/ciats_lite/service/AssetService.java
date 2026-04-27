@@ -67,13 +67,18 @@ public class AssetService {
     }
 
     public Asset createAsset(String name, String category, String status) {
+        log.info("Mencoba membuat aset baru: [Name: {}, Category: {}]", name, category);
+
         Asset asset = Asset.builder()
                 .id(sequenceGenerator.generateSequence("asset_sequence"))
                 .name(name)
                 .category(category)
                 .status(status)
                 .build();
-        return repository.save(asset);
+
+        Asset savedAsset = repository.save(asset);
+        log.info("Aset berhasil disimpan dengan ID: {}", savedAsset.getId());
+        return savedAsset;
     }
 
     @CachePut(value = "assetCache", key = "#id")
@@ -87,8 +92,8 @@ public class AssetService {
 
     @CacheEvict(value = "assetCache", key = "#id")
     public String deleteAsset(String id) {
+        log.warn("PERINGATAN: Menghapus aset dengan ID: {}", id);
         repository.deleteById(id);
-
-        return "Aset dengan ID " + id + " berhasil dihapus secara permanen dari Mongodb dan Redis";
+        return "Aset dengan ID " + id + " berhasil dihapus";
     }
 }
