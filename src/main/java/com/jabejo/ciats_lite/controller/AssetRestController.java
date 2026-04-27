@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/assets")
 public class AssetRestController {
@@ -29,11 +30,13 @@ public class AssetRestController {
         return service.getAssetById(id);
     }
 
-    @GetMapping("/paginated")
-    public Page<Asset> getPaginated(
+    @GetMapping("/sorted")
+    public Page<Asset> getSorted(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return service.getAllAssetsPaginated(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        return service.getAllAssetsPaginatedAndSorted(page, size, sortBy, direction);
     }
 
     @PostMapping

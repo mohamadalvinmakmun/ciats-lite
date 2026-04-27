@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +32,12 @@ public class AssetService {
                 .toList();
     }
 
-    public Page<Asset> getAllAssetsPaginated(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<Asset> getAllAssetsPaginatedAndSorted(int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equalsIgnoreCase("asc")?
+                Sort.by(sortBy).ascending() :
+                Sort.by(sortBy).descending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
         return repository.findAll(pageable);
     }
 
@@ -68,6 +73,7 @@ public class AssetService {
     @CacheEvict(value = "assetCache", key = "#id")
     public String deleteAsset(String id) {
         repository.deleteById(id);
-        return "Aset dengan ID" + id + "berhasil dihapus secara permanen dari Mongodb dan Redis";
+
+        return "Aset dengan ID " + id + " berhasil dihapus secara permanen dari Mongodb dan Redis";
     }
 }
