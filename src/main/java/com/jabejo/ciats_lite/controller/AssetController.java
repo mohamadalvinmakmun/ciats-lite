@@ -27,6 +27,11 @@ public class AssetController {
         return service.getAssetById(id);
     }
 
+    @QueryMapping
+    public List<Asset> findAssetsByName(@Argument String name) {
+        return service.findAssetsByName(name);
+    }
+
     @MutationMapping
     public Asset createAsset(@Argument String name, @Argument String category, @Argument String status) {
         return service.createAsset(name, category, status);

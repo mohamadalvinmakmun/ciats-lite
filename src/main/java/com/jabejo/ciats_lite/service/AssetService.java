@@ -22,6 +22,12 @@ public class AssetService {
         this.sequenceGenerator = sequenceGenerator;
     }
 
+    public List<Asset> findAssetsByName(String name) {
+        return repository.findAll().stream()
+                .filter(asset -> asset.getName().toLowerCase().contains(name.toLowerCase()))
+                .toList();
+    }
+
     public List<Asset> getAllAssets() {
         return repository.findAll();
     }
