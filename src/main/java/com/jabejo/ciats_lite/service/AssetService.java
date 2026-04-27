@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +29,11 @@ public class AssetService {
         return repository.findAll().stream()
                 .filter(asset -> asset.getName().toLowerCase().contains(name.toLowerCase()))
                 .toList();
+    }
+
+    public Page<Asset> getAllAssetsPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return repository.findAll(pageable);
     }
 
     public List<Asset> getAllAssets() {

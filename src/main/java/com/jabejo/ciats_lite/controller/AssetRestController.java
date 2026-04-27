@@ -4,6 +4,7 @@ import com.jabejo.ciats_lite.dto.AssetRequest; // Import DTO baru kamu
 import com.jabejo.ciats_lite.model.Asset;
 import com.jabejo.ciats_lite.service.AssetService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,13 @@ public class AssetRestController {
     @GetMapping("/{id}")
     public Asset getById(@PathVariable String id) {
         return service.getAssetById(id);
+    }
+
+    @GetMapping("/paginated")
+    public Page<Asset> getPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return service.getAllAssetsPaginated(page, size);
     }
 
     @PostMapping
