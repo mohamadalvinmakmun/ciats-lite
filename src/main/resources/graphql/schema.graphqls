@@ -1,0 +1,17 @@
+type Asset {
+    id: ID!
+    name: String!
+    category: String!
+    status: String!
+}
+
+type Query {
+    getAllAssets: [Asset]
+    getAssetById(id: ID!): Asset
+}
+
+type Mutation {
+    createAsset(name: String!, category: String!, status: String!): Asset
+    updateAsset(id: ID!, name: String, category: String, status: String) : Asset
+    deleteAsset(id: ID!): String
+}

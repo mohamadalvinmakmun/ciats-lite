@@ -1,0 +1,59 @@
+package com.jabejo.ciats_lite.service;
+
+import com.jabejo.ciats_lite.model.Asset;
+import com.jabejo.ciats_lite.repository.AssetRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Slf4j
+@Service
+public class AssetService {
+    private final AssetRepository repository;
+
+    private final SequenceGeneratorService sequenceGenerator;
+
+    public AssetService(AssetRepository repository,SequenceGeneratorService sequenceGenerator){
+        this.repository = repository;
+        this.sequenceGenerator = sequenceGenerator;
+    }
+
+    public List<Asset> getAllAssets() {
+        return repository.findAll();
+    }
+
+    @Cacheable(value = "assetCache", key = "#id")
+    public Asset getAssetById(String id) {
+        log.info("MENGAMBIL DATA DARI MONGODB. JIKA LOG INI MUNCUL, BERARTI DATA BELUM DI-CACHE DI REDIS");
+        return repository.findById(id).orElse(null);
+    }
+
+    public Asset createAsset(String name, String category, String status) {
+        Asset asset = Asset.builder()
+                .id(sequenceGenerator.generateSequence("asset_sequence"))
+                .name(name)
+                .category(category)
+                .status(status)
+                .build();
+        return repository.save(asset);
+    }
+
+    @CachePut(value = "assetCache", key = "#id")
+    public Asset updateAsset(String id, String name, String category,String status) {
+        Asset asset = repository.findById(id).orElseThrow(() -> new RuntimeException("Aset Tidak Ditemukan"));
+        if (name != null) asset.setName(name);
+        if (category != null) asset.setCategory(category);
+        if (status != null) asset.setStatus(status);
+        return repository.save(asset);
+    }
+
+    @CacheEvict(value = "assetCache", key = "#id")
+    public String deleteAsset(String id) {
+        repository.deleteById(id);
+        return "Aset dengan ID" + id + "berhasil dihapus secara permanen dari Mongodb dan Redis";
+    }
+}
