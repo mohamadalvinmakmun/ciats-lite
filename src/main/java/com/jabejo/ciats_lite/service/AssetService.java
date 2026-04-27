@@ -45,6 +45,10 @@ public class AssetService {
         return repository.findAll();
     }
 
+    public List<Asset> getAssetByCategory(String category) {
+        return repository.findByCategoryIgnoreCase(category);
+    }
+
     @Cacheable(value = "assetCache", key = "#id")
     public Asset getAssetById(String id) {
         log.info("MENGAMBIL DATA DARI MONGODB. JIKA LOG INI MUNCUL, BERARTI DATA BELUM DI-CACHE DI REDIS");

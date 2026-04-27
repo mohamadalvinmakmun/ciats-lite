@@ -39,6 +39,11 @@ public class AssetRestController {
         return service.getAllAssetsPaginatedAndSorted(page, size, sortBy, direction);
     }
 
+    @GetMapping("/category/{name}")
+    public List<Asset> getByCategory(@PathVariable String name) {
+        return service.getAssetByCategory(name);
+    }
+
     @PostMapping
     public Asset create(@Valid @RequestBody AssetRequest request) {
         return service.createAsset(
