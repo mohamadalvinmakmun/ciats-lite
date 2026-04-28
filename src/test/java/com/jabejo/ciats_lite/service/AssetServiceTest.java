@@ -1,6 +1,7 @@
 package com.jabejo.ciats_lite.service;
 
 import com.jabejo.ciats_lite.model.Asset;
+import com.jabejo.ciats_lite.model.AssetStatus;
 import com.jabejo.ciats_lite.repository.AssetRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class AssetServiceTest {
         Asset mockAsset = Asset.builder()
                 .id("1")
                 .name("Laptop Tes")
-                .status("Active")
+                .status(AssetStatus.ACTIVE)
                 .build();
 
         when(repository.findById("1")).thenReturn(Optional.of(mockAsset));
