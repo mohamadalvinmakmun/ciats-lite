@@ -16,6 +16,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Document(collection = "assets")
 public class Asset implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     private String id;
 
